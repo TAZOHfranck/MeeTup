@@ -3,7 +3,11 @@ import { Heart, MessageCircle, Search, User, Bell, Settings, Crown } from 'lucid
 import { motion } from 'framer-motion';
 
 interface HeaderProps {
-  currentUser?: any;
+  currentUser?: {
+    isPremium?: boolean;
+    photos?: string[];
+    name?: string;
+  };
   onNavigate: (view: string) => void;
   currentView: string;
 }
@@ -14,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ currentUser, onNavigate, current
     { id: 'matches', icon: Heart, label: 'Matches' },
     { id: 'messages', icon: MessageCircle, label: 'Messages' },
     { id: 'profile', icon: User, label: 'Profile' },
+    { id: 'settings', icon: Settings, label: 'Settings' },
   ];
 
   return (
@@ -34,7 +39,7 @@ export const Header: React.FC<HeaderProps> = ({ currentUser, onNavigate, current
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-display font-bold bg-gradient-romantic bg-clip-text text-transparent">
-              AfroConnect
+              MeeTup
             </span>
           </motion.div>
 
@@ -88,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({ currentUser, onNavigate, current
               <Settings className="w-5 h-5" />
             </motion.button>
 
-            {currentUser?.photos[0] && (
+            {currentUser?.photos && currentUser.photos[0] && (
               <motion.img
                 whileHover={{ scale: 1.1 }}
                 src={currentUser.photos[0]}

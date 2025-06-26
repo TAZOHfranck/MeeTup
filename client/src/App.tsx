@@ -15,7 +15,7 @@ type AuthView = 'login' | 'register';
 type AppView = 'discover' | 'matches' | 'messages' | 'profile';
 
 function App() {
-  const { user, isAuthenticated, isLoading, login, logout, register } = useAuth();
+  const { user, isAuthenticated, isLoading, login, register } = useAuth();
   const [authView, setAuthView] = useState<AuthView>('login');
   const [currentView, setCurrentView] = useState<AppView>('discover');
 
@@ -97,8 +97,8 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header
-        currentUser={user}
-        onNavigate={setCurrentView}
+        currentUser={user || { name: '', photos: [], isPremium: false }}
+        onNavigate={(view: string) => setCurrentView(view as AppView)}
         currentView={currentView}
       />
       
